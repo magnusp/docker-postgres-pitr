@@ -3,7 +3,7 @@ docker-postgres-pitr-lab
 
 docker run --name pgtest -p 15432:5432 -v /etc/localtime:/etc/localtime:ro -v /home/magnus.persson/pitrlabb/pitr-archive/$(date +%Y%m%d-%H%M%S)/archive:/var/lib/postgresql/archive -d postgres
 ./postconfigure-pitr.sh pgtest
-<create basebackup>
+pg_basebackup -D pitr-archive/20140715-132644/basebackup -h 127.0.0.1 -p 15432 -U postgres
 docker run -i -t --rm --link pgtest:db --name foo -v /etc/localtime:/etc/localtime:ro -e PGRUNS=15 magnusp/runner
 
 
